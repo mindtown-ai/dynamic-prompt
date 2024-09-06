@@ -131,6 +131,7 @@ const DynamicTextField: React.FC<DynamicTextFieldProps> = ({
             onValueChange={(value: string) => handleSelectChange(index, value)}
             options={data.options[part.key!]}
             placeholder={`Select ${part.key}`}
+            defaultValue={data.options[0]}
           >
             {CustomSelect ? null : (
               <>

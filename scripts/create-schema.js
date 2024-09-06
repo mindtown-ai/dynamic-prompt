@@ -28,14 +28,14 @@ fs.readFile(__dirname + "/../src/index.tsx", "utf8", (err, content) => {
   };
 
   fs.writeFile(
-    "./init/dynamic-prompt.json",
+    "./schema/dynamic-prompt.json",
     JSON.stringify(schema, null, 2),
     (err) => {
       if (err) {
         console.error(err);
         return;
       }
-      console.log("init-schema.sql created");
+      console.log("schema created!");
     }
   );
 });
