@@ -39,7 +39,7 @@ function parseText(text: string): TextPart[] {
 function reconstructText(textParts: TextPart[]): string {
   return textParts
     .map((part) => {
-      if (part.type === "text") {
+      if (part.type === "text" || part.type === "select") {
         return part.value;
       } else {
         return `{${part.key}}`;
@@ -69,6 +69,14 @@ const DynamicTextField: React.FC<DynamicTextFieldProps> = ({
   ) => {
     const newTextParts = [...textParts];
     newTextParts[index].value = e.target.value;
+    setTextParts(newTextParts);
+    onChange(reconstructText(newTextParts));
+  };
+
+  const handleSelectChange = (index: number, value: string) => {
+    const newTextParts = [...textParts];
+    newTextParts[index].value = value;
+    console.log(newTextParts);
     setTextParts(newTextParts);
     onChange(reconstructText(newTextParts));
   };
@@ -107,7 +115,7 @@ const DynamicTextField: React.FC<DynamicTextFieldProps> = ({
               type="text"
               value={part.value}
               onChange={(e) => handleTextChange(index, e)}
-              className="outline-none border-b border-transparent focus:border-gray-300 bg-transparent min-w-fit"
+              className="outline-none bg-transparent min-w-0"
               style={{ width: "fit-content" }}
             />
             <span
@@ -120,12 +128,7 @@ const DynamicTextField: React.FC<DynamicTextFieldProps> = ({
         ) : (
           <SelectComponent
             key={index}
-            onValueChange={(value: string) => {
-              const newTextParts = [...textParts];
-              newTextParts[index].value = value;
-              setTextParts(newTextParts);
-              onChange(reconstructText(newTextParts));
-            }}
+            onValueChange={(value: string) => handleSelectChange(index, value)}
             options={data.options[part.key!]}
             placeholder={`Select ${part.key}`}
           >
