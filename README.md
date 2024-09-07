@@ -11,7 +11,7 @@ This component allows you to dynamically render text fields and select inputs ba
 Currently only available with `shadcn`.
 
 ```sh
-npx shadcn add "https://raw.githubusercontent.com/mindtown-ai/dynamic-prompt/main/schema/dynamic-prompt.json"
+npx shadcn add "https://raw.githubusercontent.com/mindtown-ai/dynamic-prompt/main/schema.json"
 ```
 
 ## Usage

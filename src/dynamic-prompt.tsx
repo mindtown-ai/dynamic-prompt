@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useEffect, ChangeEvent } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
   Select as DefaultSelect,
   SelectContent,
@@ -63,17 +63,7 @@ const DynamicTextField: React.FC<DynamicTextFieldProps> = ({
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const spanRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
-  const handleTextChange = (
-    index: number,
-    e: ChangeEvent<HTMLInputElement>
-  ) => {
-    const newTextParts = [...textParts];
-    newTextParts[index].value = e.target.value;
-    setTextParts(newTextParts);
-    onChange(reconstructText(newTextParts));
-  };
-
-  const handleSelectChange = (index: number, value: string) => {
+  const handleChange = (index: number, value: string) => {
     const newTextParts = [...textParts];
     newTextParts[index].value = value;
     console.log(newTextParts);
@@ -114,7 +104,7 @@ const DynamicTextField: React.FC<DynamicTextFieldProps> = ({
               ref={setRef(index, inputRefs.current)}
               type="text"
               value={part.value}
-              onChange={(e) => handleTextChange(index, e)}
+              onChange={(e) => handleChange(index, e.target.value)}
               className="outline-none bg-transparent min-w-0"
               style={{ width: "fit-content" }}
             />
@@ -128,7 +118,7 @@ const DynamicTextField: React.FC<DynamicTextFieldProps> = ({
         ) : (
           <SelectComponent
             key={index}
-            onValueChange={(value: string) => handleSelectChange(index, value)}
+            onValueChange={(value: string) => handleChange(index, value)}
             options={data.options[part.key!]}
             placeholder={`Select ${part.key}`}
             defaultValue={data.options[0]}
